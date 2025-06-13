@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Centered Big Text</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      #big-word {
+        font-size: 10em;
+        font-weight: bold;
+        font-weight: 700;
+      }
+    </style>
+</head>
+<body>
+    <div class="container text-center mt-5">
+        <!-- <h1 class="display-5">Spelling Bee</h1> -->
+        <p class="lead">Practice Makes Perfect!</p>
+        <button id="nextShowWordBtn" class="btn btn-warning btn-md">Next & Show</button>
+        <button id="nextWordBtn" class="btn btn-warning btn-md">Next</button>
+        <button id="showWordBtn" class="btn btn-primary btn-md">Show</button>
+        <button id="hideWordBtn" class="btn btn-success btn-md">Hide</button>
+        <button id="spellWordBtn"class="btn btn-info btn-md">Spelling</button>
+        <button id="replayWordBtn" class="btn btn-warning btn-md">Replay</button>
+    </div>
+
+    <div class="container text-center mt-5">
+      <h1 id="big-word" class="display-1 big-word"></h1>
+    </div>
+
+    <script>
+        // Word list
+        const wordList = [
+
+          "Head",
+          "Hair",
+          "Forehead",
+          "Scalp",
+          "Skull",
+          "Face",
+          "Eye",
+          "Eyebrow",
+          "Eyelash",
+          "Eyelid",
+          "Ear",
+          "Cheek",
+          "Nose",
+          "Nostril",
+          "Mouth",
+          "Lip",
+          "Teeth",
+          "Tongue",
+          "Chin",
+          "Jaw",
+          "Neck",
+          "Throat",
+          "Jawline",
+          "Shoulder",
+          "Arm",
+          "Elbow",
+          "Forearm",
+          "Wrist",
+          "Hand",
+          "Palm",
+          "Finger",
+          "Thumb",
+          "Chest",
+          "Back",
+          "Belly",
+          "Hip",
+          "Leg",
+          "Thigh",
+          "Knee",
+          "Calf",
+          "Ankle",
+          "Foot",
+          "Heel",
+          "Sole",
+          "Toes",
+          "Buttock",
+          "Skin",
+          "Pores",
+          "Nail",
+          "Scalp",
+          "Eyeball",
+          "Iris",
+          "Pupil",
+          "Eardrum",
+          "Gums",
+          "Red",
+          "Blue",
+          "Yellow",
+          "Green",
+          "Orange",
+          "Purple",
+          "Pink",
+          "Brown",
+          "Black",
+          "White",
+          "Gray",
+          "Violet",
+          "Indigo",
+          "Gold",
+          "Silver",
+          "Bronze",
+          "Beige",
+          "Maroon",
+          "Navy",
+          "Teal",
+          "Olive",
+          "Coral",
+          "Peach",
+          "Lavender",
+          "Turquoise",
+          "Magenta",
+          "Cyan",
+          "Aqua",
+          "Mint",
+          "Plum",
+          "Tan",
+          "Chocolate",
+          "Indigo",
+          "Azure",
+          "Crimson",
+          "Ivory",
+          "Snow",
+          "One",
+          "Two",
+          "Three",
+          "Four",
+          "Five",
+          "Six",
+          "Seven",
+          "Eight",
+          "Nine",
+          "Ten",
+          "Eleven",
+          "Twelve",
+          "Thirteen",
+          "Fourteen",
+          "Fifteen",
+          "Sixteen",
+          "Seventeen",
+          "Eighteen",
+          "Nineteen",
+          "Twenty",
+          "Twenty one",
+          "Twenty two",
+          "Twenty three",
+          "Twenty four",
+          "Twenty five",
+          "Twenty six",
+          "Twenty seven",
+          "Twenty eight",
+          "Twenty nine",
+          "Thirty",
+          "Thirty one",
+          "Thirty two",
+          "Thirty three",
+          "Thirty four",
+          "Thirty five",
+          "Thirty six",
+          "Thirty seven",
+          "Thirty eight",
+          "Thirty nine",
+          "Forty",
+          "Forty one",
+          "Forty two",
+          "Forty three",
+          "Forty four",
+          "Forty five",
+          "Forty six",
+          "Forty seven",
+          "Forty eight",
+          "Forty nine",
+          "Fifty",
+          "Fifty one",
+          "Fifty two",
+          "Fifty three",
+          "Fifty four",
+          "Fifty five",
+          "Fifty six",
+          "Fifty seven",
+          "Fifty eight",
+          "Fifty nine",
+          "Sixty",
+          "Sixty one",
+          "Sixty two",
+          "Sixty three",
+          "Sixty four",
+          "Sixty five",
+          "Sixty six",
+          "Sixty seven",
+          "Sixty eight",
+          "Sixty nine",
+          "Seventy",
+          "Seventy one",
+          "Seventy two",
+          "Seventy three",
+          "Seventy four",
+          "Seventy five",
+          "Seventy six",
+          "Seventy seven",
+          "Seventy eight",
+          "Seventy nine",
+          "Eighty",
+          "Eighty one",
+          "Eighty two",
+          "Eighty three",
+          "Eighty four",
+          "Eighty five",
+          "Eighty six",
+          "Eighty seven",
+          "Eighty eight",
+          "Eighty nine",
+          "Ninety",
+          "Ninety one",
+          "Ninety two",
+          "Ninety three",
+          "Ninety four",
+          "Ninety five",
+          "Ninety six",
+          "Ninety seven",
+          "Ninety eight",
+          "Ninety nine",
+          "One hundred",
+
+
+
+        ];
+
+        let index = 0;
+
+        function speakWord(word) {
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.rate = 0.8; // Slower speech rate for spelling practice
+            speechSynthesis.speak(utterance);
+        }
+
+
+        function speakWordByLetters(word) {
+            const letters = word.split("");
+            let delay = 0;
+
+            var itemsProcessed = 0;
+
+            // Speak each letter with a delay between them
+            letters.forEach((letter, index) => {
+
+              itemsProcessed++;
+              setTimeout(() => {
+                  speakWord(letter);
+              }, delay);
+              delay += 800; // Adjust delay time between letters (in milliseconds)
+
+              if (itemsProcessed === letters.length) {
+                setTimeout(() => {
+                    speakWord(word);
+                }, delay + 800);
+
+              }
+            });
+        }
+
+        function getRandomFromArray(arr) {
+          return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        document.getElementById('nextWordBtn').addEventListener('click', () => {
+          document.getElementById('big-word').style.display = "None";
+          document.getElementById('big-word').innerText = "";
+          const word = document.getElementById('big-word').innerText = getRandomFromArray(wordList);
+          speakWord(word);
+        });
+
+        document.getElementById('nextShowWordBtn').addEventListener('click', () => {
+          document.getElementById('big-word').style.display = "Block";
+          document.getElementById('big-word').innerText = "";
+          const word = document.getElementById('big-word').innerText = getRandomFromArray(wordList);
+          speakWord(word);
+        });
+
+        document.getElementById('replayWordBtn').addEventListener('click', () => {
+          const word = document.getElementById('big-word').innerText;
+          speakWord(word);
+        });
+
+        document.getElementById('showWordBtn').addEventListener('click', () => {
+          document.getElementById('big-word').style.display = "Block";
+        });
+
+        document.getElementById('hideWordBtn').addEventListener('click', () => {
+          document.getElementById('big-word').style.display = "None";
+        });
+
+        document.getElementById('spellWordBtn').addEventListener('click', () => {
+          const word = document.getElementById('big-word').innerText;
+          speakWordByLetters(word)
+        });
+    </script>
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
