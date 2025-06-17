@@ -27,7 +27,7 @@
     </div>
 
     <div class="container text-center mt-5">
-      <h1 id="big-word" class="display-1 big-word"></h1>
+      <h1 id="big-word" class="display-1 big-word">Head</h1>
     </div>
 
     <script>
@@ -57,7 +57,6 @@
           "Elbow",
           "Forearm",
           "Hand",
-          "Palm",
           "Finger",
           "Thumb",
           "Chest",
@@ -152,17 +151,23 @@
           return arr[Math.floor(Math.random() * arr.length)];
         }
 
+        function getNextFromArray(arr) {
+          const word = document.getElementById('big-word').innerText;
+          const index = arr.indexOf(word);
+            return arr[index+1]
+        }
+
         document.getElementById('nextWordBtn').addEventListener('click', () => {
           document.getElementById('big-word').style.display = "None";
-          document.getElementById('big-word').innerText = "";
-          const word = document.getElementById('big-word').innerText = getRandomFromArray(wordList);
+          // document.getElementById('big-word').innerText = "";
+          const word = document.getElementById('big-word').innerText = getNextFromArray(wordList);
           speakWord(word);
         });
 
         document.getElementById('nextShowWordBtn').addEventListener('click', () => {
           document.getElementById('big-word').style.display = "Block";
-          document.getElementById('big-word').innerText = "";
-          const word = document.getElementById('big-word').innerText = getRandomFromArray(wordList);
+          // document.getElementById('big-word').innerText = "";
+          const word = document.getElementById('big-word').innerText = getNextFromArray(wordList);
           speakWord(word);
         });
 
